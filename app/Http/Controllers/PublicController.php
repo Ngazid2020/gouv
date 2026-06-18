@@ -16,8 +16,7 @@ class PublicController extends Controller
 {
     public function home(GoverneurSettings $settings): Response
     {
-        $communes = Commune::with('prefecture')
-            ->select('id', 'slug', 'nom', 'svg_path', 'centroid_x', 'centroid_y', 'prefecture_id')
+        $communes = Commune::with(['prefecture', 'elus' => fn ($q) => $q->orderBy('ordre')])
             ->get()
             ->map(fn ($c) => [
                 'id' => $c->id,
@@ -29,6 +28,21 @@ class PublicController extends Controller
                 'couleur' => $c->prefecture?->couleur,
                 'prefecture' => $c->prefecture?->nom,
                 'prefecture_id' => $c->prefecture_id,
+                'est_chef_lieu' => $c->est_chef_lieu,
+                'population' => $c->population,
+                'foyers' => $c->foyers,
+                'nb_conseillers' => $c->nb_conseillers,
+                'nb_villages' => $c->nb_villages,
+                'gouvernance' => $c->gouvernance,
+                'atouts' => $c->atouts,
+                'defis' => $c->defis,
+                'elus' => $c->elus->map(fn ($e) => [
+                    'id' => $e->id,
+                    'nom' => $e->nom,
+                    'role' => $e->role,
+                    'ordre' => $e->ordre,
+                    'photo' => $e->photo,
+                ]),
             ]);
 
         $prefectures = Prefecture::select('id', 'nom', 'couleur', 'label_x', 'label_y', 'chef_lieu')->get();
@@ -72,7 +86,7 @@ class PublicController extends Controller
 
     public function communes(): Response
     {
-        $communes = Commune::with('prefecture')
+        $communes = Commune::with(['prefecture', 'elus' => fn ($q) => $q->orderBy('ordre')])
             ->get()
             ->map(fn ($c) => [
                 'id' => $c->id,
@@ -83,6 +97,22 @@ class PublicController extends Controller
                 'centroid_y' => $c->centroid_y,
                 'couleur' => $c->prefecture?->couleur,
                 'prefecture' => $c->prefecture?->nom,
+                'prefecture_id' => $c->prefecture_id,
+                'est_chef_lieu' => $c->est_chef_lieu,
+                'population' => $c->population,
+                'foyers' => $c->foyers,
+                'nb_conseillers' => $c->nb_conseillers,
+                'nb_villages' => $c->nb_villages,
+                'gouvernance' => $c->gouvernance,
+                'atouts' => $c->atouts,
+                'defis' => $c->defis,
+                'elus' => $c->elus->map(fn ($e) => [
+                    'id' => $e->id,
+                    'nom' => $e->nom,
+                    'role' => $e->role,
+                    'ordre' => $e->ordre,
+                    'photo' => $e->photo,
+                ]),
             ]);
 
         $prefectures = Prefecture::select('id', 'nom', 'couleur', 'label_x', 'label_y')->get();
