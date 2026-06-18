@@ -13,19 +13,31 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // Créer l'admin principal s'il n'existe pas
+        // Admin principal
         User::firstOrCreate(
             ['email' => 'admin@gouv.km'],
-            [
-                'name' => 'Administrateur',
-                'password' => Hash::make('Admin@Gouv2026!'),
-            ]
+            ['name' => 'Administrateur', 'password' => Hash::make('Admin@Gouv2026!')]
+        );
+
+        // Comptes de test par rôle
+        User::firstOrCreate(
+            ['email' => 'editeur@gouv.km'],
+            ['name' => 'Éditeur Test', 'password' => Hash::make('Editeur@Gouv2026!')]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'referent@gouv.km'],
+            ['name' => 'Référent Cabinet', 'password' => Hash::make('Referent@Gouv2026!')]
         );
 
         $this->call([
             RoleSeeder::class,
             PrefectureSeeder::class,
             CommuneSeeder::class,
+            ArticleSeeder::class,
+            CabinetSeeder::class,
+            AgendaSeeder::class,
+            GoverneurSettingsSeeder::class,
         ]);
     }
 }

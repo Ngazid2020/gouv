@@ -22,10 +22,9 @@ class RoleSeeder extends Seeder
             Role::firstOrCreate(['name' => $name, 'guard_name' => 'web']);
         }
 
-        // Affecter super-administrateur au premier admin
-        $admin = User::first();
-        if ($admin) {
-            $admin->assignRole('super-administrateur');
-        }
+        // Affecter les rôles aux comptes de test
+        User::where('email', 'admin@gouv.km')->first()?->assignRole('super-administrateur');
+        User::where('email', 'editeur@gouv.km')->first()?->assignRole('editeur');
+        User::where('email', 'referent@gouv.km')->first()?->assignRole('referent-cabinet');
     }
 }
