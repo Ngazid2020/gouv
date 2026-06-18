@@ -1,13 +1,13 @@
-import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function Gouverneur({ biographie, vision, citation }) {
     return (
         <PublicLayout>
-            <Head>
-                <title>Le Gouverneur</title>
-                <meta name="description" content="Biographie, vision et missions du Gouverneur de l'Île Autonome de Ngazidja." />
-            </Head>
+            <SeoHead
+                title="Le Gouverneur — Ngazidja"
+                description="Biographie, vision et missions du Gouverneur de l'Île Autonome de Ngazidja."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

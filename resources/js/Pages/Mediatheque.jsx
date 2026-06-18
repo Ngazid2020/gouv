@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MediathequeTabs from '@/Components/MediathequeTabs';
 
@@ -7,10 +7,10 @@ export default function Mediatheque({ medias }) {
 
     return (
         <PublicLayout>
-            <Head>
-                <title>Médiathèque</title>
-                <meta name="description" content="Médiathèque du Gouvernorat de Ngazidja : photos, vidéos, documents officiels et infographies." />
-            </Head>
+            <SeoHead
+                title="Médiathèque — Ngazidja"
+                description="Médiathèque du Gouvernorat de Ngazidja : photos, vidéos, documents officiels et infographies."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

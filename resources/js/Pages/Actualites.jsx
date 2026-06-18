@@ -1,4 +1,5 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import { useState } from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import FiltreActualites from '@/Components/FiltreActualites';
@@ -12,10 +13,10 @@ export default function Actualites({ articles, categories }) {
 
     return (
         <PublicLayout>
-            <Head>
-                <title>Actualités</title>
-                <meta name="description" content="Toute l'actualité du Gouvernorat de l'Île Autonome de Ngazidja : gouvernance, communes, économie, culture." />
-            </Head>
+            <SeoHead
+                title="Actualités — Ngazidja"
+                description="Toute l'actualité du Gouvernorat de l'Île Autonome de Ngazidja : gouvernance, communes, économie, culture."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

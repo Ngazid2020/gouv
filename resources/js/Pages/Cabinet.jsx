@@ -1,14 +1,15 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 import OrganigrammeCabinet from '@/Components/OrganigrammeCabinet';
 
 export default function Cabinet({ membres }) {
     return (
         <PublicLayout>
-            <Head>
-                <title>Cabinet du Gouverneur</title>
-                <meta name="description" content="Composition et organigramme du Cabinet du Gouverneur de l'Île Autonome de Ngazidja." />
-            </Head>
+            <SeoHead
+                title="Cabinet du Gouverneur — Ngazidja"
+                description="Composition et organigramme du Cabinet du Gouverneur de l'Île Autonome de Ngazidja."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

@@ -47,7 +47,7 @@ class ContactMessageResource extends Resource
                 TextEntry::make('nom')->label('Expéditeur'),
                 TextEntry::make('email'),
                 TextEntry::make('objet'),
-                TextEntry::make('cabinetMember.nom')->label('Destinataire'),
+                TextEntry::make('cabinetMember.nom')->label('Destinataire')->default('Gouvernorat (général)'),
                 TextEntry::make('statut')
                     ->badge()
                     ->color(fn ($state) => match ($state) {
@@ -77,6 +77,7 @@ class ContactMessageResource extends Resource
 
                 Tables\Columns\TextColumn::make('cabinetMember.nom')
                     ->label('Destinataire')
+                    ->default('Gouvernorat (général)')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('statut')

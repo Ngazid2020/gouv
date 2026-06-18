@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class CabinetMember extends Model implements AuditableContract
 {
-    use Auditable;
+    use Auditable, Notifiable;
 
     protected $fillable = [
         'slug', 'nom', 'role', 'niveau', 'email', 'telephone', 'photo', 'ordre',

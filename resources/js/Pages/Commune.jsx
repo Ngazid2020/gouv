@@ -1,17 +1,18 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function Commune({ commune, articles }) {
     const elus = commune.elus || [];
-    const maire = elus.find(e => e.fonction === 'maire');
-    const adjoints = elus.filter(e => e.fonction === 'adjoint');
+    const maire = elus.find(e => e.role === 'maire');
+    const adjoints = elus.filter(e => e.role === '1er_adjoint' || e.role === '2e_adjoint');
 
     return (
         <PublicLayout>
-            <Head>
-                <title>{`Commune de ${commune.nom}`}</title>
-                <meta name="description" content={`Fiche de la commune de ${commune.nom}, préfecture de ${commune.prefecture?.nom || ''}, île de Ngazidja.`} />
-            </Head>
+            <SeoHead
+                title={`Commune de ${commune.nom} — Ngazidja`}
+                description={`Fiche de la commune de ${commune.nom}, préfecture de ${commune.prefecture?.nom || ''}, île de Ngazidja.`}
+            />
 
             {/* Hero */}
             <section

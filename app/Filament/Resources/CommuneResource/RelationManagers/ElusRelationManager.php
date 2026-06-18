@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CommuneResource\RelationManagers;
 
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Forms;
@@ -57,6 +58,10 @@ class ElusRelationManager extends RelationManager
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
+            ])
+            ->headerActions([
+                CreateAction::make()
+                ->label('Nouvel élu'),
             ]);
     }
 }

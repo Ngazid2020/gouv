@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import { useState } from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import CarteNgazidja from '@/Components/CarteNgazidja';
@@ -9,10 +9,10 @@ export default function Communes({ communes, prefectures }) {
 
     return (
         <PublicLayout>
-            <Head>
-                <title>Les Communes de Ngazidja</title>
-                <meta name="description" content="Carte interactive des 28 communes de l'île autonome de Ngazidja, organisées par préfecture." />
-            </Head>
+            <SeoHead
+                title="Les Communes de Ngazidja"
+                description="Carte interactive des 28 communes de l'île autonome de Ngazidja, organisées par préfecture."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

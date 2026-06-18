@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
@@ -14,6 +16,14 @@ Route::get('/actualites/{slug}', [PublicController::class, 'article'])->name('ar
 Route::get('/mediatheque', [PublicController::class, 'mediatheque'])->name('mediatheque');
 Route::get('/agenda', [PublicController::class, 'agenda'])->name('agenda');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:5,1');
+
+Route::get('/robots.txt', function () {
+    $sitemapUrl = rtrim(config('app.url'), '/').'/sitemap.xml';
+    $content = "User-agent: *\nAllow: /\n\nDisallow: /admin\nDisallow: /admin/*\nDisallow: /profile\nDisallow: /dashboard\n\nSitemap: {$sitemapUrl}\n";
+
+    return Response::make($content, 200, ['Content-Type' => 'text/plain']);
+});
 
 Route::get('/dashboard', function () {
     return redirect('/admin');

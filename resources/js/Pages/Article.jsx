@@ -1,16 +1,16 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function Article({ article }) {
     return (
         <PublicLayout>
-            <Head>
-                <title>{article.titre}</title>
-                <meta name="description" content={article.extrait || ''} />
-                <meta property="og:title" content={article.titre} />
-                <meta property="og:description" content={article.extrait || ''} />
-                {article.media_principal && <meta property="og:image" content={`/storage/${article.media_principal}`} />}
-            </Head>
+            <SeoHead
+                title={`${article.titre} — Ngazidja`}
+                description={article.extrait || ''}
+                image={article.media_principal ? `/storage/${article.media_principal}` : undefined}
+                type="article"
+            />
 
             {/* Breadcrumb */}
             <div className="bg-azur-pale py-3 border-b border-ligne">

@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function Agenda({ evenements }) {
@@ -8,10 +8,10 @@ export default function Agenda({ evenements }) {
 
     return (
         <PublicLayout>
-            <Head>
-                <title>Agenda</title>
-                <meta name="description" content="Agenda officiel du Gouvernorat de l'Île Autonome de Ngazidja : événements, cérémonies, réunions publiques." />
-            </Head>
+            <SeoHead
+                title="Agenda — Ngazidja"
+                description="Agenda officiel du Gouvernorat de l'Île Autonome de Ngazidja : événements, cérémonies, réunions publiques."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

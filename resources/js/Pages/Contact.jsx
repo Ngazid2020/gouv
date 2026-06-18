@@ -1,14 +1,14 @@
-import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 import FormulaireContact from '@/Components/FormulaireContact';
 
 export default function Contact({ membres }) {
     return (
         <PublicLayout>
-            <Head>
-                <title>Contact</title>
-                <meta name="description" content="Contactez le Gouvernorat de l'Île Autonome de Ngazidja ou un membre du cabinet." />
-            </Head>
+            <SeoHead
+                title="Contact — Ngazidja"
+                description="Contactez le Gouvernorat de l'Île Autonome de Ngazidja ou un membre du cabinet."
+            />
 
             {/* Hero */}
             <section className="bg-gradient-to-br from-bleu-nuit to-bleu-ng text-white py-16">

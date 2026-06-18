@@ -41,6 +41,9 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'gouverneurCitation' => fn () => app(GoverneurSettings::class)->citation,
+            'flash' => [
+                'success' => fn () => $request->session()->get('flash_success'),
+            ],
         ];
     }
 }

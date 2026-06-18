@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 const TYPE_LABELS = {
-    photo:     'Photos',
-    video:     'Vidéos',
-    document:  'Documents',
-    infographie: 'Infographies',
+    photo:        'Photos',
+    video:        'Vidéos',
+    document:     'Documents',
+    infographie:  'Infographies',
 };
 
 export default function MediathequeTabs({ medias }) {
@@ -15,7 +15,7 @@ export default function MediathequeTabs({ medias }) {
 
     return (
         <div>
-            {/* Tabs */}
+            {/* Onglets */}
             <div className="flex gap-2 flex-wrap mb-8 border-b border-ligne pb-3">
                 {types.map(t => (
                     <button
@@ -33,7 +33,6 @@ export default function MediathequeTabs({ medias }) {
                 ))}
             </div>
 
-            {/* Content */}
             {items.length === 0 ? (
                 <p className="text-gris text-center py-12">Aucun média disponible pour le moment.</p>
             ) : actif === 'photo' ? (
@@ -47,22 +46,23 @@ export default function MediathequeTabs({ medias }) {
     );
 }
 
+/* ── Photos ──────────────────────────────────────────────── */
+
 function PhotoGrid({ items }) {
     return (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {items.map(m => (
                 <div key={m.id} className="rounded-[12px] overflow-hidden bg-azur-pale aspect-square flex items-center justify-center group cursor-pointer hover:ring-2 hover:ring-or transition-all">
                     {m.chemin ? (
-                        <img src={`/storage/${m.chemin}`} alt={m.titre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                        <img
+                            src={`/storage/${m.chemin}`}
+                            alt={m.titre || ''}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                     ) : (
-                        <div className="text-center p-3">
-                            <svg className="w-8 h-8 text-azur mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                <rect x="3" y="3" width="18" height="18" rx="3"/>
-                                <circle cx="8.5" cy="8.5" r="1.5"/>
-                                <path d="M21 15l-5-5L5 21"/>
-                            </svg>
-                            <p className="text-xs text-gris">{m.titre}</p>
-                        </div>
+                        <PhotoPlaceholder label={m.titre} />
                     )}
                 </div>
             ))}
@@ -70,30 +70,74 @@ function PhotoGrid({ items }) {
     );
 }
 
+function PhotoPlaceholder({ label }) {
+    return (
+        <div className="text-center p-3">
+            <svg className="w-8 h-8 text-azur mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            {label && <p className="text-xs text-gris">{label}</p>}
+        </div>
+    );
+}
+
+/* ── Vidéos ──────────────────────────────────────────────── */
+
 function VideoGrid({ items }) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {items.map(m => (
-                <div key={m.id} className="rounded-[18px] overflow-hidden bg-bleu-nuit/5 border border-ligne hover:shadow-md transition-shadow">
-                    {m.url ? (
-                        <a href={m.url} target="_blank" rel="noopener noreferrer" className="block aspect-video bg-bleu-nuit flex items-center justify-center group">
-                            <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-or/80 transition-colors">
-                                <svg className="w-6 h-6 text-white ml-1" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                        </a>
-                    ) : (
-                        <div className="aspect-video bg-bleu-nuit/10 flex items-center justify-center">
-                            <svg className="w-10 h-10 text-gris-clair" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    )}
-                    <div className="p-4">
-                        <p className="font-serif text-sm font-semibold text-bleu-nuit">{m.titre}</p>
-                    </div>
-                </div>
+                <VideoCard key={m.id} media={m} />
             ))}
         </div>
     );
 }
+
+function VideoCard({ media }) {
+    const [expanded, setExpanded] = useState(false);
+    const embedUrl = getEmbedUrl(media.url);
+
+    return (
+        <div className="rounded-[18px] overflow-hidden bg-bleu-nuit/5 border border-ligne hover:shadow-md transition-shadow">
+            {expanded && embedUrl ? (
+                <div className="aspect-video">
+                    <iframe
+                        src={embedUrl}
+                        title={media.titre}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                    />
+                </div>
+            ) : (
+                <button
+                    onClick={() => embedUrl ? setExpanded(true) : window.open(media.url, '_blank')}
+                    className="w-full aspect-video bg-bleu-nuit flex items-center justify-center group"
+                    aria-label={`Lire ${media.titre}`}
+                >
+                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-or/80 transition-colors">
+                        <svg className="w-6 h-6 text-white ml-1" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </button>
+            )}
+            <div className="p-4">
+                <p className="font-serif text-sm font-semibold text-bleu-nuit">{media.titre}</p>
+                {media.url && !embedUrl && (
+                    <a href={media.url} target="_blank" rel="noopener noreferrer" className="text-azur text-xs hover:underline mt-1 block truncate">
+                        {media.url}
+                    </a>
+                )}
+            </div>
+        </div>
+    );
+}
+
+/* ── Documents ───────────────────────────────────────────── */
 
 function DocumentList({ items }) {
     return (
@@ -124,4 +168,20 @@ function DocumentList({ items }) {
             ))}
         </div>
     );
+}
+
+/* ── Helper embed ────────────────────────────────────────── */
+
+function getEmbedUrl(url) {
+    if (!url) return null;
+
+    // YouTube
+    const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0`;
+
+    // Vimeo
+    const vi = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (vi) return `https://player.vimeo.com/video/${vi[1]}?autoplay=1`;
+
+    return null;
 }

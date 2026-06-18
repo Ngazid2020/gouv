@@ -1,8 +1,9 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import CarteNgazidja from '@/Components/CarteNgazidja';
 import FicheCommune from '@/Components/FicheCommune';
+import SeoHead from '@/Components/SeoHead';
 
 const ICO_ARROW = (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
@@ -24,10 +25,10 @@ export default function Home({ citation, communes, prefectures, actualites, even
 
     return (
         <PublicLayout>
-            <Head>
-                <title>Gouvernorat de l'Île Autonome de Ngazidja</title>
-                <meta name="description" content="Portail institutionnel du Gouvernorat de Ngazidja. Communes, actualités, cabinet et agenda de l'île autonome de Grande Comore." />
-            </Head>
+            <SeoHead
+                title="Gouvernorat de l'Île Autonome de Ngazidja"
+                description="Portail institutionnel du Gouvernorat de Ngazidja. Communes, actualités, cabinet et agenda de l'île autonome de Grande Comore."
+            />
 
             {/* ===== HÉRO ===== */}
             <section className="relative overflow-hidden text-white" style={{ background: 'radial-gradient(120% 90% at 80% -10%, #16518f 0%, #08457E 45%, #072647 100%)', padding: 0 }}>
