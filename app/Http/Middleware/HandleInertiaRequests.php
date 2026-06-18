@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Settings\GoverneurSettings;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -39,6 +40,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'gouverneurCitation' => fn () => app(GoverneurSettings::class)->citation,
         ];
     }
 }

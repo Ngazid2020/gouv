@@ -1,21 +1,22 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/gouverneur', [PublicController::class, 'gouverneur'])->name('gouverneur');
+Route::get('/cabinet', [PublicController::class, 'cabinet'])->name('cabinet');
+Route::get('/communes', [PublicController::class, 'communes'])->name('communes');
+Route::get('/communes/{slug}', [PublicController::class, 'commune'])->name('commune');
+Route::get('/actualites', [PublicController::class, 'actualites'])->name('actualites');
+Route::get('/actualites/{slug}', [PublicController::class, 'article'])->name('article');
+Route::get('/mediatheque', [PublicController::class, 'mediatheque'])->name('mediatheque');
+Route::get('/agenda', [PublicController::class, 'agenda'])->name('agenda');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect('/admin');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

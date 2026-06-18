@@ -1,3 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --bleu-nuit:  #071A33;
+    --bleu-ng:    #08457E;
+    --bleu:       #14609E;
+    --azur:       #2E8FD6;
+    --azur-pale:  #E8F1FA;
+    --or:         #C8A24A;
+    --or-clair:   #E3C878;
+    --vert:       #1F7A5C;
+}
+
+@layer base {
+    html {
+        font-family: 'Instrument Sans', system-ui, sans-serif;
+        color: #071A33;
+        background: #FBFCFE;
+    }
+    h1, h2, h3, h4, h5 {
+        font-family: 'Fraunces', Georgia, serif;
+    }
+}
+
+@layer utilities {
+    .btn-pill {
+        @apply inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200;
+        font-family: 'Archivo', system-ui, sans-serif;
+    }
+    .btn-or {
+        @apply btn-pill bg-or text-bleu-nuit hover:bg-or-clair shadow-soft;
+    }
+    .btn-bleu {
+        @apply btn-pill bg-bleu text-white hover:bg-bleu-ng shadow-soft;
+    }
+    .btn-outline {
+        @apply btn-pill border border-bleu text-bleu hover:bg-azur-pale;
+    }
+    .wrap {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    .section-title {
+        @apply font-serif text-2xl sm:text-3xl font-bold text-bleu-nuit mb-2;
+    }
+    .eyebrow {
+        font-family: 'Archivo', system-ui, sans-serif;
+        @apply text-xs uppercase tracking-widest text-or font-semibold mb-2;
+    }
+}
