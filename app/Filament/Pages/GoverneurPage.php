@@ -49,6 +49,7 @@ class GoverneurPage extends SettingsPage
                     ->helperText('Photo formelle, cadrage portrait (recommandé : 800 × 900 px minimum).')
                     ->image()
                     ->disk('public')
+                    ->visibility('public')
                     ->directory('gouverneur')
                     ->nullable(),
 
