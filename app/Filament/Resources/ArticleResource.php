@@ -102,6 +102,7 @@ class ArticleResource extends Resource
                 Forms\Components\FileUpload::make('media_principal')
                     ->label('Image principale')
                     ->image()
+                    ->disk('public')
                     ->directory('articles')
                     ->nullable()
                     ->columnSpanFull(),

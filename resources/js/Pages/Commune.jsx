@@ -53,12 +53,12 @@ export default function Commune({ commune, articles }) {
                             )}
                         </div>
 
-                        {/* Description + élus */}
+                        {/* Description + élus + atouts/défis */}
                         <div className="lg:col-span-2 space-y-8">
-                            {commune.description && (
+                            {commune.gouvernance && (
                                 <div>
-                                    <h2 className="eyebrow">Présentation</h2>
-                                    <p className="text-bleu-nuit/80 leading-relaxed">{commune.description}</p>
+                                    <h2 className="eyebrow">Gouvernance</h2>
+                                    <p className="text-bleu-nuit/80 leading-relaxed">{commune.gouvernance}</p>
                                 </div>
                             )}
 
@@ -73,11 +73,46 @@ export default function Commune({ commune, articles }) {
                                                 </div>
                                                 <div>
                                                     <p className="font-semibold text-sm text-bleu-nuit">{e.nom}</p>
-                                                    <p className="text-xs text-gris capitalize">{e.fonction}</p>
+                                                    <p className="text-xs text-gris">{roleLabel(e.role)}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
+                                </div>
+                            )}
+
+                            {((commune.atouts?.length > 0) || (commune.defis?.length > 0)) && (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    {commune.atouts?.length > 0 && (
+                                        <div>
+                                            <h2 className="eyebrow mb-3">Atouts</h2>
+                                            <ul className="space-y-2">
+                                                {commune.atouts.map((a, i) => (
+                                                    <li key={i} className="flex items-start gap-2 text-sm text-bleu-nuit/80">
+                                                        <span className="mt-[3px] w-4 h-4 rounded-full bg-[#C8A24A]/20 flex-shrink-0 flex items-center justify-center">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-[#C8A24A] block" />
+                                                        </span>
+                                                        {a}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                    {commune.defis?.length > 0 && (
+                                        <div>
+                                            <h2 className="eyebrow mb-3">Défis</h2>
+                                            <ul className="space-y-2">
+                                                {commune.defis.map((d, i) => (
+                                                    <li key={i} className="flex items-start gap-2 text-sm text-bleu-nuit/80">
+                                                        <span className="mt-[3px] w-4 h-4 rounded-full bg-bleu-ng/10 flex-shrink-0 flex items-center justify-center">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-bleu-ng block" />
+                                                        </span>
+                                                        {d}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -123,6 +158,11 @@ function StatCard({ label, value }) {
 
 function initiales(nom) {
     return (nom || '').split(' ').map(w => w[0] || '').slice(0, 2).join('').toUpperCase();
+}
+
+function roleLabel(role) {
+    const map = { maire: 'Maire', '1er_adjoint': '1er Adjoint', '2e_adjoint': '2e Adjoint', conseiller: 'Conseiller' };
+    return map[role] ?? role;
 }
 
 function formatDate(date) {

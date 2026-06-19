@@ -41,7 +41,12 @@ class MediaResource extends Resource
         return $schema->schema([
             Section::make()->schema([
                 Forms\Components\Select::make('type')
-                    ->options(['photo' => 'Photo', 'video' => 'Vidéo', 'infographie' => 'Infographie'])
+                    ->options([
+                        'discours' => 'Discours',
+                        'citation' => 'Citation',
+                        'galerie' => 'Galerie (photo / vidéo)',
+                        'document' => 'Document',
+                    ])
                     ->required(),
 
                 Forms\Components\TextInput::make('titre')
@@ -65,6 +70,7 @@ class MediaResource extends Resource
             Section::make('Fichier ou URL')->schema([
                 Forms\Components\FileUpload::make('chemin')
                     ->label('Fichier (photo / infographie)')
+                    ->disk('public')
                     ->directory('medias')
                     ->image()
                     ->nullable(),
@@ -88,9 +94,18 @@ class MediaResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->badge()
                     ->color(fn ($state) => match ($state) {
-                        'photo' => 'info',
-                        'video' => 'danger',
-                        'infographie' => 'success',
+                        'discours' => 'danger',
+                        'citation' => 'warning',
+                        'galerie' => 'info',
+                        'document' => 'success',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'discours' => 'Discours',
+                        'citation' => 'Citation',
+                        'galerie' => 'Galerie',
+                        'document' => 'Document',
+                        default => $state,
                     }),
 
                 Tables\Columns\IconColumn::make('dans_mediatheque')
@@ -108,7 +123,12 @@ class MediaResource extends Resource
             ->defaultSort('ordre')
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
-                    ->options(['photo' => 'Photo', 'video' => 'Vidéo', 'infographie' => 'Infographie']),
+                    ->options([
+                        'discours' => 'Discours',
+                        'citation' => 'Citation',
+                        'galerie' => 'Galerie',
+                        'document' => 'Document',
+                    ]),
             ])
             ->actions([
                 EditAction::make(),

@@ -83,20 +83,14 @@ class CommuneResource extends Resource
             ])->columns(2),
 
             Section::make('Atouts & Défis')->schema([
-                Forms\Components\Repeater::make('atouts')
+                Forms\Components\TagsInput::make('atouts')
                     ->label('Atouts')
-                    ->schema([
-                        Forms\Components\TextInput::make('valeur')->label('')->required(),
-                    ])
-                    ->addActionLabel('Ajouter un atout')
+                    ->placeholder('Ajouter un atout…')
                     ->columnSpan(1),
 
-                Forms\Components\Repeater::make('defis')
+                Forms\Components\TagsInput::make('defis')
                     ->label('Défis')
-                    ->schema([
-                        Forms\Components\TextInput::make('valeur')->label('')->required(),
-                    ])
-                    ->addActionLabel('Ajouter un défi')
+                    ->placeholder('Ajouter un défi…')
                     ->columnSpan(1),
             ])->columns(2),
         ]);

@@ -1,7 +1,7 @@
 import SeoHead from '@/Components/SeoHead';
 import PublicLayout from '@/Layouts/PublicLayout';
 
-export default function Gouverneur({ biographie, vision, citation }) {
+export default function Gouverneur({ biographie, vision, citation, photo }) {
     return (
         <PublicLayout>
             <SeoHead
@@ -21,16 +21,22 @@ export default function Gouverneur({ biographie, vision, citation }) {
             <section className="py-16">
                 <div className="wrap">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                        {/* Photo placeholder */}
+                        {/* Photo */}
                         <div className="lg:col-span-1">
-                            <div className="rounded-[18px] bg-azur-pale aspect-[3/4] flex items-center justify-center max-w-xs mx-auto lg:mx-0">
-                                <div className="text-center">
-                                    <div className="w-20 h-20 rounded-full bg-bleu-ng/20 flex items-center justify-center mx-auto mb-3">
-                                        <span className="font-serif text-3xl text-bleu-ng font-bold">IM</span>
+                            <div className="rounded-[18px] aspect-[3/4] max-w-xs mx-auto lg:mx-0 overflow-hidden relative" style={{ background: 'linear-gradient(160deg, #0d4a86, #0a3360)' }}>
+                                {photo ? (
+                                    <img src={`/storage/${photo}`} alt="Gouverneur de Ngazidja" className="absolute inset-0 w-full h-full object-cover object-top" />
+                                ) : (
+                                    <div className="absolute inset-0 flex items-center justify-center bg-azur-pale">
+                                        <div className="text-center">
+                                            <div className="w-20 h-20 rounded-full bg-bleu-ng/20 flex items-center justify-center mx-auto mb-3">
+                                                <span className="font-serif text-3xl text-bleu-ng font-bold">IM</span>
+                                            </div>
+                                            <p className="font-label text-xs uppercase tracking-wider text-gris">Gouverneur</p>
+                                            <p className="font-serif text-sm text-bleu-nuit mt-1 font-semibold">Île Autonome de Ngazidja</p>
+                                        </div>
                                     </div>
-                                    <p className="font-label text-xs uppercase tracking-wider text-gris">Gouverneur</p>
-                                    <p className="font-serif text-sm text-bleu-nuit mt-1 font-semibold">Île Autonome de Ngazidja</p>
-                                </div>
+                                )}
                             </div>
                         </div>
 

@@ -60,6 +60,7 @@ class PublicController extends Controller
 
         return Inertia::render('Home', [
             'citation' => $settings->citation,
+            'gouverneur_photo' => $settings->photo,
             'communes' => $communes,
             'prefectures' => $prefectures,
             'actualites' => $actualites,
@@ -73,6 +74,7 @@ class PublicController extends Controller
             'biographie' => $settings->biographie,
             'vision' => $settings->vision,
             'citation' => $settings->citation,
+            'photo' => $settings->photo,
         ]);
     }
 
@@ -173,7 +175,7 @@ class PublicController extends Controller
     {
         $medias = Media::where('dans_mediatheque', true)
             ->orderBy('ordre')
-            ->get(['id', 'type', 'titre', 'chemin', 'url']);
+            ->get(['id', 'type', 'titre', 'chemin', 'url', 'created_at']);
 
         $grouped = $medias->groupBy('type');
 

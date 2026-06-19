@@ -31,6 +31,14 @@ class GoverneurPage extends SettingsPage
     public function form(Schema $schema): Schema
     {
         return $schema->schema([
+            Forms\Components\FileUpload::make('photo')
+                ->label('Photo officielle du Gouverneur')
+                ->image()
+                ->disk('public')
+                ->directory('gouverneur')
+                ->nullable()
+                ->columnSpanFull(),
+
             Forms\Components\RichEditor::make('biographie')
                 ->label('Biographie')
                 ->columnSpanFull()

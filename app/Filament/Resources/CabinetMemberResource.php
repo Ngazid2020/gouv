@@ -80,6 +80,7 @@ class CabinetMemberResource extends Resource
 
                 Forms\Components\FileUpload::make('photo')
                     ->image()
+                    ->disk('public')
                     ->directory('cabinet')
                     ->nullable()
                     ->columnSpanFull(),

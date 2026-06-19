@@ -34,10 +34,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PrefectureSeeder::class,
             CommuneSeeder::class,
+            EluSeeder::class,
             ArticleSeeder::class,
             CabinetSeeder::class,
             AgendaSeeder::class,
             GoverneurSettingsSeeder::class,
+            MediaSeeder::class,
         ]);
     }
 }

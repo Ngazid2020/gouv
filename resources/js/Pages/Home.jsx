@@ -16,7 +16,7 @@ const ICO_PIN = (
     </svg>
 );
 
-export default function Home({ citation, communes, prefectures, actualites, evenements }) {
+export default function Home({ citation, gouverneur_photo, communes, prefectures, actualites, evenements }) {
     const [ficheCommune, setFicheCommune] = useState(null);
     const [activePrefId, setActivePrefId] = useState(prefectures?.[3]?.id || prefectures?.[0]?.id || null);
 
@@ -73,15 +73,19 @@ export default function Home({ citation, communes, prefectures, actualites, even
 
                     {/* Droite — gov-card */}
                     <div style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.16)', borderRadius: '24px', padding: '18px', backdropFilter: 'blur(6px)', boxShadow: '0 30px 70px -30px rgba(0,0,0,.6)' }}>
-                        {/* Photo placeholder */}
-                        <div style={{ aspectRatio: '4/4.4', borderRadius: '16px', overflow: 'hidden', background: 'linear-gradient(160deg, #0d4a86, #0a3360)', position: 'relative', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                            <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'end center', paddingBottom: '24px' }}>
-                                <svg viewBox="0 0 120 160" width="90" opacity="0.2">
-                                    <ellipse cx="60" cy="45" rx="32" ry="35" fill="#cfe0f2"/>
-                                    <path d="M5 160 Q5 100 60 100 Q115 100 115 160Z" fill="#cfe0f2"/>
-                                </svg>
-                            </div>
-                            <span style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(7,26,51,.55)', color: '#cfe0f2', fontSize: '.62rem', fontFamily: 'Archivo, sans-serif', letterSpacing: '.1em', textTransform: 'uppercase', padding: '3px 8px', borderRadius: '6px', backdropFilter: 'blur(4px)' }}>
+                        {/* Photo gouverneur */}
+                        <div style={{ aspectRatio: '4/4.4', borderRadius: '16px', overflow: 'hidden', background: 'linear-gradient(160deg, #0d4a86, #0a3360)', position: 'relative' }}>
+                            {gouverneur_photo ? (
+                                <img src={`/storage/${gouverneur_photo}`} alt="Gouverneur de Ngazidja" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                            ) : (
+                                <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'end center', paddingBottom: '24px' }}>
+                                    <svg viewBox="0 0 120 160" width="90" opacity="0.2">
+                                        <ellipse cx="60" cy="45" rx="32" ry="35" fill="#cfe0f2"/>
+                                        <path d="M5 160 Q5 100 60 100 Q115 100 115 160Z" fill="#cfe0f2"/>
+                                    </svg>
+                                </div>
+                            )}
+                            <span style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(7,26,51,.55)', color: '#cfe0f2', fontSize: '.62rem', fontFamily: 'Archivo, sans-serif', letterSpacing: '.1em', textTransform: 'uppercase', padding: '3px 8px', borderRadius: '6px', backdropFilter: 'blur(4px)', zIndex: 1 }}>
                                 Portrait officiel
                             </span>
                         </div>
@@ -103,11 +107,17 @@ export default function Home({ citation, communes, prefectures, actualites, even
             <section className="py-20">
                 <div className="wrap" style={{ display: 'grid', gridTemplateColumns: '.9fr 1.1fr', gap: '50px', alignItems: 'center' }}>
                     {/* Photo */}
-                    <div style={{ aspectRatio: '5/4', borderRadius: '18px', overflow: 'hidden', background: 'linear-gradient(160deg, #0d4a86, #0a3360)', position: 'relative', display: 'grid', placeItems: 'end center', paddingBottom: '20px' }}>
-                        <svg viewBox="0 0 120 160" width="120" opacity="0.2">
-                            <ellipse cx="60" cy="45" rx="32" ry="35" fill="#cfe0f2"/>
-                            <path d="M5 160 Q5 100 60 100 Q115 100 115 160Z" fill="#cfe0f2"/>
-                        </svg>
+                    <div style={{ aspectRatio: '5/4', borderRadius: '18px', overflow: 'hidden', background: 'linear-gradient(160deg, #0d4a86, #0a3360)', position: 'relative' }}>
+                        {gouverneur_photo ? (
+                            <img src={`/storage/${gouverneur_photo}`} alt="Gouverneur de Ngazidja" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                        ) : (
+                            <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'end center', paddingBottom: '20px' }}>
+                                <svg viewBox="0 0 120 160" width="120" opacity="0.2">
+                                    <ellipse cx="60" cy="45" rx="32" ry="35" fill="#cfe0f2"/>
+                                    <path d="M5 160 Q5 100 60 100 Q115 100 115 160Z" fill="#cfe0f2"/>
+                                </svg>
+                            </div>
+                        )}
                     </div>
                     {/* Citation */}
                     <div>
@@ -335,9 +345,15 @@ function FeaturedArticle({ article: a }) {
     const k = kindColors[a.type] || { bg: '#e7f1fb', color: '#14609E' };
     return (
         <Link href={`/actualites/${a.slug}`} className="block rounded-[18px] overflow-hidden border border-ligne bg-white transition-all hover:shadow-md cursor-pointer" style={{ gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: '1.15fr 1fr' }}>
-            <div className="min-h-[300px] relative" style={{ background: 'linear-gradient(135deg, #1d6e8c, #0a3a5a)', display: 'grid', placeItems: 'center' }}>
-                <svg className="w-12 h-12 text-white/70" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" opacity=".25"/><path d="M10 8l6 4-6 4Z"/></svg>
-                <span className="absolute bottom-3 left-3 font-label uppercase tracking-wider text-[.6rem]" style={{ color: 'rgba(255,255,255,.8)' }}>Vidéo / Reportage à intégrer</span>
+            <div className="min-h-[300px] relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1d6e8c, #0a3a5a)' }}>
+                {a.media_principal ? (
+                    <img src={`/storage/${a.media_principal}`} alt={a.titre} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <svg className="w-12 h-12 text-white/70" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" opacity=".25"/><path d="M10 8l6 4-6 4Z"/></svg>
+                    </div>
+                )}
+                <span className="absolute bottom-3 left-3 font-label uppercase tracking-wider text-[.6rem]" style={{ color: 'rgba(255,255,255,.8)', zIndex: 1 }}>À la une</span>
             </div>
             <div className="p-9 flex flex-col justify-center">
                 <div className="flex items-center gap-2.5 mb-2">
@@ -361,8 +377,14 @@ function ArtCard({ article: a }) {
     const k = kindColors[a.type] || { bg: '#e7f1fb', color: '#14609E' };
     return (
         <Link href={`/actualites/${a.slug}`} className="block rounded-[18px] overflow-hidden border border-ligne bg-white transition-all hover:-translate-y-1 cursor-pointer" onMouseEnter={e => e.currentTarget.style.boxShadow='0 18px 50px -22px rgba(7,26,51,.35)'} onMouseLeave={e => e.currentTarget.style.boxShadow='none'}>
-            <div className="h-40 relative" style={{ background: 'linear-gradient(135deg, #0c4a86, #0a2f59)', display: 'grid', placeItems: 'center' }}>
-                <svg className="w-10 h-10 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13" r="3.5"/></svg>
+            <div className="h-40 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0c4a86, #0a2f59)' }}>
+                {a.media_principal ? (
+                    <img src={`/storage/${a.media_principal}`} alt={a.titre} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <svg className="w-10 h-10 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13" r="3.5"/></svg>
+                    </div>
+                )}
             </div>
             <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-center gap-2.5 mb-2">
