@@ -28,10 +28,13 @@ HTML;
 HTML;
 
         $defaults = [
-            'biographie' => $biographie,
-            'vision'     => $vision,
-            'citation'   => '"Ngazidja avance lorsque ses communes avancent. Ce portail est notre engagement de transparence, de proximité et de modernité."',
-            'photo'      => 'gouverneur/01KVE5YJ33RYM1YGMF9XRE1E7Y.png',
+            'nom'          => 'Ibrahim Mze Mohamed',
+            'titre_fonction' => "Gouverneur de l'île de Ngazidja",
+            'portrait'     => 'gouverneur/01KVE5YJ33RYM1YGMF9XRE1E7Y.png',
+            'photo'        => 'gouverneur/01KVE5YJ33RYM1YGMF9XRE1E7Y.png',
+            'biographie'   => $biographie,
+            'vision'       => $vision,
+            'citation'     => '"Ngazidja avance lorsque ses communes avancent. Ce portail est notre engagement de transparence, de proximité et de modernité."',
         ];
 
         foreach ($defaults as $name => $value) {

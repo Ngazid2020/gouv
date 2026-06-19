@@ -59,8 +59,11 @@ class PublicController extends Controller
             ->get(['id', 'titre', 'date', 'lieu']);
 
         return Inertia::render('Home', [
-            'citation' => $settings->citation,
-            'gouverneur_photo' => $settings->photo,
+            'citation'            => $settings->citation,
+            'gouverneur_nom'      => $settings->nom,
+            'gouverneur_titre'    => $settings->titre_fonction,
+            'gouverneur_portrait' => $settings->portrait,
+            'gouverneur_photo'    => $settings->photo,
             'communes' => $communes,
             'prefectures' => $prefectures,
             'actualites' => $actualites,

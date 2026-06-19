@@ -16,7 +16,7 @@ const ICO_PIN = (
     </svg>
 );
 
-export default function Home({ citation, gouverneur_photo, communes, prefectures, actualites, evenements }) {
+export default function Home({ citation, gouverneur_nom, gouverneur_titre, gouverneur_portrait, gouverneur_photo, communes, prefectures, actualites, evenements }) {
     const [ficheCommune, setFicheCommune] = useState(null);
     const [activePrefId, setActivePrefId] = useState(prefectures?.[3]?.id || prefectures?.[0]?.id || null);
 
@@ -75,8 +75,8 @@ export default function Home({ citation, gouverneur_photo, communes, prefectures
                     <div style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.16)', borderRadius: '24px', padding: '18px', backdropFilter: 'blur(6px)', boxShadow: '0 30px 70px -30px rgba(0,0,0,.6)' }}>
                         {/* Photo gouverneur */}
                         <div style={{ aspectRatio: '4/4.4', borderRadius: '16px', overflow: 'hidden', background: 'linear-gradient(160deg, #0d4a86, #0a3360)', position: 'relative' }}>
-                            {gouverneur_photo ? (
-                                <img src={`/storage/${gouverneur_photo}`} alt="Gouverneur de Ngazidja" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                            {gouverneur_portrait ? (
+                                <img src={`/storage/${gouverneur_portrait}`} alt="Portrait officiel du Gouverneur" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
                             ) : (
                                 <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'end center', paddingBottom: '24px' }}>
                                     <svg viewBox="0 0 120 160" width="90" opacity="0.2">
@@ -92,11 +92,15 @@ export default function Home({ citation, gouverneur_photo, communes, prefectures
                         {/* Meta */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '14px', padding: '4px 6px' }}>
                             <div style={{ width: '44px', height: '44px', borderRadius: '12px', flexShrink: 0, display: 'grid', placeItems: 'center', background: 'linear-gradient(135deg, #C8A24A, #E3C878)', color: '#3a2c06', fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '1rem' }}>
-                                IM
+                                {initiales(gouverneur_nom || 'Ibrahim Mze Mohamed')}
                             </div>
                             <div>
-                                <div className="font-serif font-semibold text-white" style={{ fontSize: '1.05rem' }}>Ibrahim Mze Mohamed</div>
-                                <div className="font-label uppercase tracking-wider" style={{ fontSize: '.74rem', color: '#a9c6e3' }}>Gouverneur de l'île de Ngazidja</div>
+                                <div className="font-serif font-semibold text-white" style={{ fontSize: '1.05rem' }}>
+                                    {gouverneur_nom || 'Ibrahim Mze Mohamed'}
+                                </div>
+                                <div className="font-label uppercase tracking-wider" style={{ fontSize: '.74rem', color: '#a9c6e3' }}>
+                                    {gouverneur_titre || "Gouverneur de l'île de Ngazidja"}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -399,6 +403,10 @@ function ArtCard({ article: a }) {
             </div>
         </Link>
     );
+}
+
+function initiales(nom) {
+    return (nom || '').split(' ').map(w => w[0] || '').slice(0, 2).join('').toUpperCase();
 }
 
 function formatDate(date) {

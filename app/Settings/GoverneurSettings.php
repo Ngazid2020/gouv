@@ -6,6 +6,12 @@ use Spatie\LaravelSettings\Settings;
 
 class GoverneurSettings extends Settings
 {
+    public ?string $nom = null;
+
+    public ?string $titre_fonction = null;
+
+    public ?string $portrait = null;
+
     public ?string $photo = null;
 
     public ?string $biographie = null;
